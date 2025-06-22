@@ -1,0 +1,39 @@
+﻿<Window x:Class="InventoryManagmentApplication.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Вход в систему" Height="450" Width="380" ResizeMode="NoResize" Icon="/Resources/LoginIcon.ico">
+    <StackPanel Margin="10">
+        <!-- Заголовок -->
+        <TextBlock FontSize="18" TextWrapping="Wrap" 
+                  Text="Вход в информационную систему управления перемещением материальных запасов"/>
+
+        <!-- Поля ввода -->
+        <TextBox Name="LoginName" HorizontalAlignment="Left" Margin="0,25,0,0" FontSize="18" 
+                Text="Имя пользователя" Width="250" GotFocus="LoginNameTextBox_GotFocus" LostFocus="LoginNameTextBox_LostFocus"/>
+
+        <TextBox Name="LoginPassword" HorizontalAlignment="Left" Margin="0,25,0,0" FontSize="18"
+                Text="Пароль" Width="250" GotFocus="LoginPasswordTextBox_GotFocus" LostFocus="LoginPasswordTextBox_LostFocus"/>
+
+        <!-- Сообщение об ошибке -->
+        <Border Grid.Row="4" x:Name="ErrorContainer"
+               CornerRadius="5"
+               BorderThickness="2"
+               BorderBrush="#F9B479"
+               Background="#FCD6B5"
+               Height="0" Margin="0,10,0,10"
+               VerticalAlignment="Top">
+            <TextBlock x:Name="ErrorTextBlock"
+                     FontSize="18"
+                     Text="Пользователь с заданным именем и паролем не найден"
+                     TextWrapping="Wrap"
+                     VerticalAlignment="Center"/>
+        </Border>
+
+        <!-- Кнопка входа -->
+        <Button Name="LoginButton" Content="Выполнить вход" 
+               Margin="0,25,0,0" FontSize="18" Click="LoginButton_Click"/>
+    </StackPanel>
+</Window>
