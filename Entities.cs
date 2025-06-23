@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace InventoryManagmentApplication
 {
     public class Warehouses
     {
         [Key]
-        public int warehouse_id {  get; set; }
+        public int warehouse_id { get; set; }
 
         public int material_id { get; set; }
 
@@ -18,13 +13,7 @@ namespace InventoryManagmentApplication
 
         public int capacity { get; set; }
 
-        private string _location;
-
-        public required string location
-        {
-            get => _location;
-            set => _location = value;
-        }
+        public required string location { get; set; }
 
         public Warehouses() { }
 
@@ -43,36 +32,37 @@ namespace InventoryManagmentApplication
         [Key]
         public int material_id { get; set; }
 
-        private string _material_name;
-        private string _unit_of_measure;
-        private string _min_stock_level;
+        public required string material_name { get; set; }
 
-        public required string material_name
-        {
-            get => _material_name;
-            set => _material_name = value;
-        }
-
-        public required string unit_of_measure
-        {
-            get => _unit_of_measure;
-            set => _unit_of_measure = value;
-        }
-
-        public required string min_stock_level
-        {
-            get => _min_stock_level;
-            set => _min_stock_level = value;
-        }
+        public required string unit_of_measure { get; set; }
 
         public Materials() { }
 
-        public Materials(int material_id, string _material_name, string unit_of_measure, string min_stock_level)
+        public Materials(int material_id, string material_name, string unit_of_measure)
         {
             this.material_id = material_id;
-            this._material_name = _material_name;
+            this.material_name = material_name;
             this.unit_of_measure = unit_of_measure;
-            this.min_stock_level = min_stock_level;
         }
     }
+
+    public class Routes
+    {
+        [Key]
+        public int route_id { get; set; }
+
+        public int warehouse_sender_id { get; set; }
+
+        public int warehouse_recipient_id { get; set; }
+
+        public Routes() { }
+
+        public Routes(int route_id, int warehouse_sender_id, int warehouse_recipient_id)
+        {
+            this.route_id = route_id;
+            this.warehouse_sender_id = warehouse_sender_id;
+            this.warehouse_recipient_id = warehouse_recipient_id;
+        }
+    }
+
 }

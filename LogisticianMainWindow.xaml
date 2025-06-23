@@ -30,23 +30,186 @@
                 <TabItem Header="Материалы">
                     <StackPanel>
                         <TextBlock Text="Просмотр информации о материалах" FontSize="18" Margin="15, 10, 10, 0"/>
-                        <DataGrid Name="MaterialsTable" Margin="15,15,0,15" HorizontalAlignment="Left" Focusable="True" SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" FontSize="14" CanUserDeleteRows="False" CanUserAddRows="False" Width="740" Height="300">
+                        <DataGrid Name="MaterialsTable" Margin="15,15,0,15" HorizontalAlignment="Left" Focusable="True" SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" FontSize="14" CanUserDeleteRows="False" CanUserAddRows="False" Width="500" Height="300">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" IsReadOnly="True" Binding="{Binding material_id, UpdateSourceTrigger=PropertyChanged}"/>
                                 <DataGridTextColumn Header="Название материала" IsReadOnly="True" Binding="{Binding material_name, UpdateSourceTrigger=PropertyChanged}"/>
                                 <DataGridTextColumn Header="Единицы измерения" IsReadOnly="True" Binding="{Binding unit_of_measure, UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="Минимальный уровень запаса" IsReadOnly="True" Binding="{Binding min_stock_level, UpdateSourceTrigger=PropertyChanged}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>
                 </TabItem>
-                
-                <TabItem Header="Продукты"/>
-                <TabItem Header="Рецептура"/>
-                <TabItem Header="Поставщики"/>
-                <TabItem Header="Заказы"/>
-                <TabItem Header="Документы"/>
-                <TabItem Header="Производство"/>
+
+                <TabItem Header="Продукты">
+                    <StackPanel>
+                        <TextBlock Text="Просмотр информации о продуктах" FontSize="18" Margin="15, 10, 10, 0"/>
+                        <DataGrid x:Name="ProductsTable" Margin="15,15,0,15" HorizontalAlignment="Left" Focusable="True" SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" FontSize="14" CanUserDeleteRows="False" CanUserAddRows="False" Width="302" Height="300">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID продукта" IsReadOnly="True" Binding="{Binding product_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Название продукта" IsReadOnly="True" Binding="{Binding product_name, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Маршруты">
+                    <StackPanel>
+                        <TextBlock Text="Просмотр маршрутов" FontSize="18" Margin="15, 10, 10, 0"/>
+                        <DataGrid x:Name="RoutesTable" Margin="15,15,0,15" HorizontalAlignment="Left" Focusable="True" SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" FontSize="14" CanUserDeleteRows="False" CanUserAddRows="False" Width="668" Height="300">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID маршрута" IsReadOnly="True" Binding="{Binding route_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="ID склада-отправителя" IsReadOnly="True" Binding="{Binding warehouse_sender_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="ID склада-получателя" IsReadOnly="True" Binding="{Binding warehouse_recipient_id, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Поставщики">
+                    <StackPanel>
+                        <TextBlock Text="Информация о поставщиках" FontSize="18" Margin="15, 10, 10, 0"/>
+                        <DataGrid x:Name="SuppliersTable" Margin="15,15,0,15" CellEditEnding="IsDataEditing" KeyDown="SuppliersTableKeyDown" HorizontalAlignment="Left" Focusable="True" SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" FontSize="14" CanUserDeleteRows="False" CanUserAddRows="False" Width="550" Height="240">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID поставщика" IsReadOnly="True" Binding="{Binding supplier_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Название поставщика" IsReadOnly="False" Binding="{Binding supplier_name, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Контактная информация" IsReadOnly="False" Binding="{Binding contact_info, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Button Name="AddingSupplierData" Margin="10, 30, 10, 10" Content="Добавить информацию" HorizontalAlignment="Left" Click="AddingSupplierClick"/>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Заказы">
+                    <StackPanel>
+                        <TextBlock Text="Информация о заказах" FontSize="18" Margin="15, 10, 10, 0"/>
+                        <TabControl Margin="10,10,10,10" TabStripPlacement="Left" HorizontalAlignment="Left" Width="750" Height="360">
+                            <TabItem Header="Новые Заказы">
+                                <DataGrid x:Name="OrdersTable" Margin="0,10,0,10" FontSize="14" CanUserDeleteRows="False" CanUserAddRows="False" Width="540">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="ID заказа" IsReadOnly="True" Binding="{Binding order_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID материала" IsReadOnly="False" Binding="{Binding material_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="Количество" IsReadOnly="False" Binding="{Binding quantity, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID маршрута" IsReadOnly="False" Binding="{Binding route_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID поставщика" IsReadOnly="False" Binding="{Binding supplier_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </TabItem>
+                            <TabItem Header="Отгрузка">
+                                <DataGrid x:Name="OrdersShipmentTable" Margin="0,10,0,10" FontSize="14" CanUserDeleteRows="False" CanUserAddRows="False" Width="540">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="ID отгрузки" IsReadOnly="True" Binding="{Binding shipment_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID заказа" IsReadOnly="False" Binding="{Binding order_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID материала" IsReadOnly="False" Binding="{Binding material_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="Количество" IsReadOnly="False" Binding="{Binding quantity, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID маршрута" IsReadOnly="False" Binding="{Binding route_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID поставщика" IsReadOnly="False" Binding="{Binding supplier_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </TabItem>
+                            <TabItem Header="В пути">
+                                <DataGrid x:Name="OrdersOnTheWayTable" Margin="0,10,0,10" FontSize="14" CanUserDeleteRows="False" CanUserAddRows="False" Width="540">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="ID перемещения" IsReadOnly="True" Binding="{Binding ontheway_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID отгрузки" IsReadOnly="True" Binding="{Binding shipment_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID заказа" IsReadOnly="False" Binding="{Binding order_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID материала" IsReadOnly="False" Binding="{Binding material_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="Количество" IsReadOnly="False" Binding="{Binding quantity, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID маршрута" IsReadOnly="False" Binding="{Binding route_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID поставщика" IsReadOnly="False" Binding="{Binding supplier_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </TabItem>
+                            <TabItem Header="Приемка">
+                                <DataGrid x:Name="OrdersAcceptanceTable" Margin="0,10,0,10" FontSize="14" CanUserDeleteRows="False" CanUserAddRows="False" Width="540">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="ID приемки" IsReadOnly="True" Binding="{Binding ontheway_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID перемещения" IsReadOnly="True" Binding="{Binding ontheway_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID отгрузки" IsReadOnly="True" Binding="{Binding shipment_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID заказа" IsReadOnly="False" Binding="{Binding order_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID материала" IsReadOnly="False" Binding="{Binding material_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="Количество" IsReadOnly="False" Binding="{Binding quantity, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID маршрута" IsReadOnly="False" Binding="{Binding route_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID поставщика" IsReadOnly="False" Binding="{Binding supplier_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </TabItem>
+                            <TabItem Header="Заказы на производство">
+                                <DataGrid x:Name="ProcessesTable" Margin="0,10,0,10" FontSize="14" CanUserDeleteRows="False" CanUserAddRows="False" Width="540">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="ID процесса" IsReadOnly="True" Binding="{Binding production_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID склада колчедана" IsReadOnly="True" Binding="{Binding debiting_warehouse_pyrite_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID склада кислорода" IsReadOnly="True" Binding="{Binding debiting_warehouse_oxygenium_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID склада оксида серы" IsReadOnly="False" Binding="{Binding debiting_warehouse_sulfur_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID материала" IsReadOnly="False" Binding="{Binding material_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID склада продуктов" IsReadOnly="False" Binding="{Binding product_warehouse_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID продукта" IsReadOnly="False" Binding="{Binding product_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </TabItem>
+                        </TabControl>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Документы">
+                    <StackPanel>
+                        <TextBlock Text="Документы" FontSize="18" Margin="15, 10, 10, 0"/>
+                        <TabControl TabStripPlacement="Left" Margin="10, 10, 10, 10" HorizontalAlignment="Left" Height="350" Width="765">
+                            <TabItem Header="Отгрузка">
+                                <DataGrid x:Name="ShipmentDocumentsTable" Margin="0,10,0,10" FontSize="14" CanUserDeleteRows="False" CanUserAddRows="False" Width="540">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="ID документа" IsReadOnly="True" Binding="{Binding document_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID отгрузки" IsReadOnly="True" Binding="{Binding shipment_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID заказа" IsReadOnly="False" Binding="{Binding order_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID материала" IsReadOnly="False" Binding="{Binding material_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="Количество" IsReadOnly="False" Binding="{Binding quantity, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID маршрута" IsReadOnly="False" Binding="{Binding route_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID поставщика" IsReadOnly="False" Binding="{Binding supplier_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </TabItem>
+                            <TabItem Header="В пути">
+                                <DataGrid x:Name="OnTheWayDocumentsTable" Margin="0,10,0,10" FontSize="14" CanUserDeleteRows="False" CanUserAddRows="False" Width="540">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="ID документа" IsReadOnly="True" Binding="{Binding shipment_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID перемещения" IsReadOnly="True" Binding="{Binding ontheway_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID отгрузки" IsReadOnly="True" Binding="{Binding shipment_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID заказа" IsReadOnly="False" Binding="{Binding order_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID материала" IsReadOnly="False" Binding="{Binding material_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="Количество" IsReadOnly="False" Binding="{Binding quantity, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID маршрута" IsReadOnly="False" Binding="{Binding route_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID поставщика" IsReadOnly="False" Binding="{Binding supplier_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </TabItem>
+                            <TabItem Header="Приемка">
+                                <DataGrid x:Name="AcceptanceDocumentsTable" Margin="0,10,0,10" FontSize="14" CanUserDeleteRows="False" CanUserAddRows="False" Width="540">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="ID документа" IsReadOnly="True" Binding="{Binding shipment_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID приемки" IsReadOnly="True" Binding="{Binding ontheway_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID перемещения" IsReadOnly="True" Binding="{Binding ontheway_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID отгрузки" IsReadOnly="True" Binding="{Binding shipment_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID заказа" IsReadOnly="False" Binding="{Binding order_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID материала" IsReadOnly="False" Binding="{Binding material_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="Количество" IsReadOnly="False" Binding="{Binding quantity, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID маршрута" IsReadOnly="False" Binding="{Binding route_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID поставщика" IsReadOnly="False" Binding="{Binding supplier_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </TabItem>
+                            <TabItem Header="Заказы на производство">
+                                <DataGrid x:Name="ProcessDocumentsTable" Margin="0,10,0,10" FontSize="14" CanUserDeleteRows="False" CanUserAddRows="False" Width="540">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="ID документа" IsReadOnly="True" Binding="{Binding shipment_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID процесса" IsReadOnly="True" Binding="{Binding production_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID склада колчедана" IsReadOnly="True" Binding="{Binding debiting_warehouse_pyrite_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID склада кислорода" IsReadOnly="True" Binding="{Binding debiting_warehouse_oxygenium_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID склада оксида серы" IsReadOnly="False" Binding="{Binding debiting_warehouse_sulfur_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID материала" IsReadOnly="False" Binding="{Binding material_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID склада продуктов" IsReadOnly="False" Binding="{Binding product_warehouse_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="ID продукта" IsReadOnly="False" Binding="{Binding product_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </TabItem>
+                        </TabControl>
+                    </StackPanel>
+                </TabItem>
+
 
             </TabControl>
         </StackPanel>
