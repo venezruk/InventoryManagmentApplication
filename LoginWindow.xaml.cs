@@ -83,14 +83,40 @@ namespace InventoryManagmentApplication
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
+            string[] logistician = { "Logistician", "Logic" };
+
+            string[] manager = { "Manager", "Manage" };
+
+            string[] storekeeper = { "Storekeeper", "Store" };
+
             // Пример использования
-            if ((LoginName.Text != "123") && (LoginPassword.Text != "123"))
+            if (LoginName.Text == logistician[0] && LoginPassword.Text == logistician[1])
             {
-                ShowError();
+                MessageBox.Show("Вход выполнен успешно (Логист)", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                LogisticianMainWindow mainWindow = new LogisticianMainWindow();
+
+                mainWindow.Show();
+
+                this.Close();
+
+                HideError();
+            }
+            else if (LoginName.Text == manager[0] && LoginPassword.Text == manager[1])
+            {
+                MessageBox.Show("Вход выполнен успешно (Менеджер)", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                HideError();
+            }
+            else if (LoginName.Text == storekeeper[0] && LoginPassword.Text == storekeeper[1])
+            {
+                MessageBox.Show("Вход выполнен успешно (Кладовщик)", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                HideError();
             }
             else
             {
-                HideError();
+                ShowError();
             }
         }
     }

@@ -1,0 +1,55 @@
+﻿<Window x:Class="InventoryManagmentApplication.LogisticianMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InventoryManagmentApplication"
+        mc:Ignorable="d"
+        Title="Главное меню" Width="900" Height="550" ResizeMode="NoResize" Icon="/resources/LoginIcon.ico">
+    <Grid>
+        <Border Margin="-1,-1,-1,439" BorderBrush="#483D8B" BorderThickness="1">
+            <TextBlock Margin="10,10,10,10" FontSize="32" Text="Добрый день, Логист!" />
+        </Border>
+
+        <StackPanel Margin="0,95,0,0">
+            <TabControl TabStripPlacement="Left" HorizontalAlignment="Left" Height="405" Width="900">
+                <TabItem Header="Склады">
+                    <StackPanel>
+                        <TextBlock Text="Просмотр информации о складах" FontSize="18" Margin="15, 10, 10, 0"/>
+                        <DataGrid Name="WarehousesTable" Margin="15,15,0,15" HorizontalAlignment="Left" Focusable="True" SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" FontSize="14" CanUserDeleteRows="False" CanUserAddRows="False" Width="740" Height="300">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" IsReadOnly="True" Binding="{Binding warehouse_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="ID материала на хранении" IsReadOnly="True" Binding="{Binding material_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Заполнено" IsReadOnly="True" Binding="{Binding current_quantity, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Максимальная вместимость" IsReadOnly="True" Binding="{Binding capacity, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Местоположение" IsReadOnly="True" Binding="{Binding location, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Материалы">
+                    <StackPanel>
+                        <TextBlock Text="Просмотр информации о материалах" FontSize="18" Margin="15, 10, 10, 0"/>
+                        <DataGrid Name="MaterialsTable" Margin="15,15,0,15" HorizontalAlignment="Left" Focusable="True" SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" FontSize="14" CanUserDeleteRows="False" CanUserAddRows="False" Width="740" Height="300">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" IsReadOnly="True" Binding="{Binding material_id, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Название материала" IsReadOnly="True" Binding="{Binding material_name, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Единицы измерения" IsReadOnly="True" Binding="{Binding unit_of_measure, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Минимальный уровень запаса" IsReadOnly="True" Binding="{Binding min_stock_level, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </TabItem>
+                
+                <TabItem Header="Продукты"/>
+                <TabItem Header="Рецептура"/>
+                <TabItem Header="Поставщики"/>
+                <TabItem Header="Заказы"/>
+                <TabItem Header="Документы"/>
+                <TabItem Header="Производство"/>
+
+            </TabControl>
+        </StackPanel>
+
+    </Grid>
+</Window>
