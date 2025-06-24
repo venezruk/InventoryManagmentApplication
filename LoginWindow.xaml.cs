@@ -98,11 +98,23 @@ namespace InventoryManagmentApplication
             {
                 MessageBox.Show("Вход выполнен успешно (Менеджер)", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
 
+                ManagerMainWindow mainWindow = new ManagerMainWindow();
+
+                mainWindow.Show();
+
+                this.Close();
+
                 HideError();
             }
             else if (LoginName.Text == storekeeper[0] && LoginPassword.Text == storekeeper[1])
             {
                 MessageBox.Show("Вход выполнен успешно (Кладовщик)", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                StorekeeperMainWindow mainWindow = new StorekeeperMainWindow();
+
+                mainWindow.Show();
+
+                this.Close();
 
                 HideError();
             }
