@@ -68,6 +68,9 @@ namespace InventoryManagmentApplication
             new KeyEventHandler(OrdersAcceptanceTableKeyDown),
             handledEventsToo: true);
 
+            ProductsTable.AddHandler(System.Windows.Controls.DataGrid.KeyDownEvent,
+                new KeyEventHandler(ProductsTableKeyDown), handledEventsToo: true);
+
             // //
         }
 
@@ -290,6 +293,84 @@ namespace InventoryManagmentApplication
                         }
                     }
                     else MessageBox.Show($"Заказ №{selectedOrder.order_id} не был завершен.", "Отмена действия", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+        }
+
+        private void AddingProcessDataClick(object sender, RoutedEventArgs e)
+        {
+            var newProcess = new Processes()
+            {
+                status = "В обработке",
+                debiting_warehouse_sulfur_id = 5,
+                debiting_warehouse_oxygenium_id = 4,
+                debiting_warehouse_pyrite_id = 1,
+                product_warehouse_id = 6
+            };
+
+            dataBaseService.AddProcess(newProcess);
+
+            dataBaseService.GetProcessesData(ProcessesTable);
+
+            ProcessesTable.Items.Refresh();
+
+        }
+
+        private void AddingProductDataClick(object sender, RoutedEventArgs e)
+        {
+            var newProduct = new Products()
+            {
+                product_name = "Новый продукт"
+            };
+
+
+            dataBaseService.AddProduct(newProduct);
+
+            dataBaseService.GetProductData(ProductsTable);
+
+            ProductsTable.Items.Refresh();
+        }
+        private void ProductsTableCellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            var product = ProductsTable.SelectedItem as Products;
+
+            if (product != null)
+            {
+                dataBaseService.UpdateProducts(product);
+            }
+        }
+
+        private void ProductsTableKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+
+                var answer = MessageBox.Show("Вы действительно хотите удалить информацию о продукте?", "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (answer == MessageBoxResult.Yes)
+                {
+
+                    var selectedProduct = (Products)ProductsTable.SelectedItem;
+
+                    if (selectedProduct != null)
+                    {
+                        int selectedRowNumber = selectedProduct.product_id;
+
+                        var productToDelete = dataBaseService.GetProductToDelete(selectedRowNumber);
+
+                        if (productToDelete != null)
+                        {
+                            dataBaseService.DeleteProduct(productToDelete);
+
+                            MessageBox.Show("Информация успешно удалена!", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        }
+                        dataBaseService.GetProductData(ProductsTable);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Данные не были удалены", "Отмена очистки", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
         }

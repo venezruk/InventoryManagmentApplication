@@ -76,6 +76,8 @@ namespace InventoryManagmentApplication
 
         public Routes? GetRouteToDelete(int selectedRowNumber) => _dataBase.Routes.FirstOrDefault(s => s.route_id == selectedRowNumber);
 
+        public Products? GetProductToDelete(int selectedRowNumber) => _dataBase.Products.FirstOrDefault(s => s.product_id == selectedRowNumber);
+
         public void DeleteRoute(Routes Route)
         {
             _dataBase.Routes.Remove(Route);
@@ -88,9 +90,27 @@ namespace InventoryManagmentApplication
             _dataBase.SaveChanges();
         }
 
+        public void DeleteProduct(Products Product)
+        {
+            _dataBase.Products.Remove(Product);
+            _dataBase.SaveChanges();
+        }
+
         public void AddRoute(Routes Route)
         {
             _dataBase.Routes.Add(Route);
+            _dataBase.SaveChanges();
+        }
+
+        public void AddProcess(Processes Process)
+        {
+            _dataBase.Processes.Add(Process);
+            _dataBase.SaveChanges();
+        }
+
+        public void AddProduct(Products Product)
+        {
+            _dataBase.Products.Add(Product);
             _dataBase.SaveChanges();
         }
 
@@ -106,6 +126,11 @@ namespace InventoryManagmentApplication
             _dataBase.SaveChanges();
         }
 
+        public void UpdateProducts(Products Product)
+        {
+            _dataBase.Update(Product);
+            _dataBase.SaveChanges();
+        }
         public void UpdateSuppliers(Suppliers supplier)
         {
             _dataBase.Update(supplier);
