@@ -165,7 +165,7 @@
                         <TextBlock Text="Документы" FontSize="18" Margin="15, 10, 10, 0"/>
                         <TabControl TabStripPlacement="Left" Margin="10, 10, 10, 10" HorizontalAlignment="Left" Height="350" Width="765">
                             <TabItem Header="Отгрузка">
-                                <DataGrid x:Name="ShipmentDocumentsTable" AutoGenerateColumns="False" Margin="0,10,0,10" FontSize="14" CanUserDeleteRows="False" CanUserAddRows="False" Width="540">
+                                <DataGrid x:Name="ShipmentDocumentsTable" AutoGenerateColumns="False" Margin="0,10,0,10" FontSize="14" CanUserDeleteRows="False"  CanUserAddRows="False" Width="540">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="ID документа" IsReadOnly="True" Binding="{Binding document_id, UpdateSourceTrigger=PropertyChanged}"/>
                                         <DataGridTextColumn Header="ID отгрузки" IsReadOnly="True" Binding="{Binding shipment_id, UpdateSourceTrigger=PropertyChanged}"/>
