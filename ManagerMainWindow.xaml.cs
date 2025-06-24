@@ -251,7 +251,7 @@ namespace InventoryManagmentApplication
                         {
                             var warehouse = dataBaseService.GetDestinationWarehouse(selectedOrder);
 
-                            if (warehouse.capacity - warehouse.free_quantity + selectedOrder.quantity > warehouse.capacity) MessageBox.Show($"Не удалось завершить заказ, поскольку количество запасов на приемке ({selectedOrder.quantity}) больше свободного места на складе ({warehouse.capacity - warehouse.free_quantity})", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            if (selectedOrder.quantity > warehouse.free_quantity) MessageBox.Show($"Не удалось завершить заказ, поскольку количество запасов на приемке ({selectedOrder.quantity}) больше свободного места на складе ({warehouse.free_quantity})", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
 
                             else
                             {
